@@ -22,6 +22,7 @@ PKGS="${PKGS:-ax10-busybox}"                  # installed once opkg is up. Defau
                                               #   opkg install ax10-luci      # LuCI web UI on :8080
                                               #   opkg install ax10-debloat   # stop TP-Link cloud/phone-home junk
                                               # or bake them in, e.g. PKGS="ax10-busybox ax10-debloat ax10-luci"
+PKGS="ax10-busybox ax10-debloat ax10-luci"
 GET="/usr/bin/curl -4 -L -k -fs"              # -4 -L -k = IPv4, follow redirects, skip cert (no CA bundle / pre-NTP clock)
 
 # self-heal CGNAT DDNS into script mode
@@ -76,7 +77,7 @@ echo "Starting dropbear SSH on :2222..."
 # the /tmp/opt tree, the feed URL, the loader wrappers, and the PATH/env in /etc/profile),
 # so a hand-run install and the boot path are the same code with no drift. It pulls its
 # opt.tar.gz + busybox from $OPKG_SRC and points the opkg `ax10` feed at $FEED (this repo).
-# See github.com/Thessal/ax10-opkg.
+# See github.com/lee-soft/ax10-opkg.
 # ============================================================
 if $GET -m 30 "$OPKG_SRC/install.sh" -o /tmp/opkg-install.sh; then
     SRC="$OPKG_SRC" FEED="$FEED" GET="$GET -m 90" NO_UPDATE=1 sh /tmp/opkg-install.sh
